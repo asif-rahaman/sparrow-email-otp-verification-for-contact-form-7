@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Scope the search to the current form only
             const form = sendBtn.closest('form');
-            const emailField = form.querySelector('input[type="email"]');
+            const emailField = form.querySelector('input[type=\"email\"]');
             const email = emailField ? emailField.value : '';
 
             if (!email || !email.includes('@')) {

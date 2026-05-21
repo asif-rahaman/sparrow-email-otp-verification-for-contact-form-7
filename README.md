@@ -24,7 +24,7 @@ This plugin is built with a **"Your Server, Your Rules"** philosophy. It sends O
 2. Activate the plugin through the 'Plugins' menu in WordPress.
 3. Edit your Contact Form 7 form and add these two elements:
     * **The Button:** `<button type="button" class="seov_cf7-send-otp-btn wpcf7-submit">Send OTP</button>`
-    * **The OTP Field:** `[text* email-otp placeholder "Enter OTP"]`
+    * **The OTP Field:** `[text* sparrow-email-otp placeholder "Enter OTP"]`
 4. Save your form.
 
 ## ❓ Frequently Asked Questions

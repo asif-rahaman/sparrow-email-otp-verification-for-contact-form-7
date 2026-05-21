@@ -1,0 +1,93 @@
+# Copyright (C) 2026 Asif Rahaman
+# This file is distributed under the GPL v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Sparrow Email OTP Verification for Contact Form 7 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/sparrow-email-otp-verification-for-contact-form-7\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-05-20T08:12:19+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: sparrow-email-otp-verification-for-contact-form-7\n"
+
+#. Plugin Name of the plugin
+#: sparrow-email-otp-verification-for-contact-form-7.php
+msgid "Sparrow Email OTP Verification for Contact Form 7"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: sparrow-email-otp-verification-for-contact-form-7.php
+msgid "https://github.com/asif-rahaman/sparrow-email-otp-verification-for-contact-form-7"
+msgstr ""
+
+#. Description of the plugin
+#: sparrow-email-otp-verification-for-contact-form-7.php
+msgid "Adds OTP email verification to Contact Form 7 using the site's default SMTP. No third-party APIs required."
+msgstr ""
+
+#. Author of the plugin
+#: sparrow-email-otp-verification-for-contact-form-7.php
+msgid "Asif Rahaman"
+msgstr ""
+
+#. Author URI of the plugin
+#: sparrow-email-otp-verification-for-contact-form-7.php
+msgid "https://portfolio.asif.rocks"
+msgstr ""
+
+#: sparrow-email-otp-verification-for-contact-form-7.php:43
+msgid "Sending..."
+msgstr ""
+
+#: sparrow-email-otp-verification-for-contact-form-7.php:44
+msgid "Wait"
+msgstr ""
+
+#: sparrow-email-otp-verification-for-contact-form-7.php:45
+msgid "Resend OTP"
+msgstr ""
+
+#: sparrow-email-otp-verification-for-contact-form-7.php:46
+msgid "Please enter a valid email address."
+msgstr ""
+
+#: sparrow-email-otp-verification-for-contact-form-7.php:74
+msgid "Too many attempts. Please try again in 5 minutes."
+msgstr ""
+
+#: sparrow-email-otp-verification-for-contact-form-7.php:78
+msgid "Invalid email address."
+msgstr ""
+
+#. translators: %s: Site Name
+#: sparrow-email-otp-verification-for-contact-form-7.php:87
+#, php-format
+msgid "[%s] Your Verification OTP Code"
+msgstr ""
+
+#. translators: %s: OTP Code
+#: sparrow-email-otp-verification-for-contact-form-7.php:89
+#, php-format
+msgid "Your verification OTP code is: %s"
+msgstr ""
+
+#. translators: %s: OTP Code
+#: sparrow-email-otp-verification-for-contact-form-7.php:89
+msgid "This OTP code will expire in 5 minutes."
+msgstr ""
+
+#: sparrow-email-otp-verification-for-contact-form-7.php:93
+msgid "Verification OTP code sent successfully."
+msgstr ""
+
+#: sparrow-email-otp-verification-for-contact-form-7.php:95
+msgid "Email delivery failed. Check your SMTP settings."
+msgstr ""
+
+#: sparrow-email-otp-verification-for-contact-form-7.php:120
+msgid "The OTP code is incorrect or has expired."
+msgstr ""

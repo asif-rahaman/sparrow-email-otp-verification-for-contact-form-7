@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Sparrow Email OTP Verification for Contact Form 7
  * Plugin URI:  https://github.com/asif-rahaman/sparrow-email-otp-verification-for-contact-form-7
- * Description: Adds OTP email verification to Contact Form 7 using the site's default SMTP. No third-party APIs required.
+ * Description: Adds OTP email verification to Contact Form 7 using the site's default wp_mail() function or SMTP. No third-party APIs required.
  * Version:     1.0.0
  * Requires at least: 5.2
  * Requires PHP:      7.2
@@ -12,7 +12,7 @@
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: sparrow-email-otp-verification-for-contact-form-7
  * Domain Path: /languages
- * Tested up to: 6.9
+ * Tested up to: 7.0
  * Requires Plugins:  contact-form-7
  */
 
@@ -100,7 +100,7 @@ class SEOV_CF7_Email_OTP_Verification {
      * Validate the OTP during CF7 submission.
      */
     public function seov_cf7_validate_otp($result, $tag) {
-        if ($tag->name === 'email-otp') {
+        if ($tag->name === 'sparrow-email-otp') {
             $submission = WPCF7_Submission::get_instance();
             if (!$submission) return $result;
 
@@ -113,7 +113,7 @@ class SEOV_CF7_Email_OTP_Verification {
                 }
             }
 
-            $user_otp   = isset($posted_data['email-otp']) ? trim($posted_data['email-otp']) : '';
+            $user_otp   = isset($posted_data['sparrow-email-otp']) ? trim($posted_data['sparrow-email-otp']) : '';
             $stored_otp = get_transient('seov_cf7_otp_' . md5($email));
 
             if (empty($email) || !$stored_otp || $user_otp != $stored_otp) {
