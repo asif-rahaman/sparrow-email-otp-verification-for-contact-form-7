@@ -3,7 +3,7 @@
  * Plugin Name: Sparrow Email OTP Verification for Contact Form 7
  * Plugin URI:  https://github.com/asif-rahaman/sparrow-email-otp-verification-for-contact-form-7
  * Description: Adds OTP email verification to Contact Form 7 using the site's default wp_mail() function or SMTP. No third-party APIs required.
- * Version:     1.0.0
+ * Version:     1.1.0
  * Requires at least: 5.2
  * Requires PHP:      7.2
  * Author: Asif Rahaman
@@ -35,7 +35,7 @@ class SEOV_CF7_Email_OTP_Verification {
      * Enqueue JS and localized strings.
      */
     public function seov_cf7_enqueue_assets() {
-        wp_enqueue_script('seov-cf7-otp-js', plugin_dir_url(__FILE__) . 'assets/otp-handler.js', ['jquery'], '1.0.0', true);
+        wp_enqueue_script('seov-cf7-otp-js', plugin_dir_url(__FILE__) . 'assets/otp-handler.js', ['jquery'], '1.1.0', true);
         
         wp_localize_script('seov-cf7-otp-js', 'seov_cf7_obj', [
             'ajax_url'          => admin_url('admin-ajax.php'),

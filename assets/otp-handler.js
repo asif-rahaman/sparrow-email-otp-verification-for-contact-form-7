@@ -1,21 +1,98 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const sendButtons = document.querySelectorAll('.seov_cf7-send-otp-btn');
-    
-    sendButtons.forEach(function(sendBtn) {
-        // Create a unique message container for this specific button
-        const msgContainer = document.createElement('div');
-        msgContainer.className = 'seov_cf7-otp-response';
-        msgContainer.style.marginTop = '10px';
-        sendBtn.parentNode.insertBefore(msgContainer, sendBtn.nextSibling);
+    /**
+     * NEW V1.1.0 FEATURE: Dynamic Wrapper Isolation
+     * Automatically search for any native Contact Form 7 email fields and set up 
+     * the conditionally hidden wrapper box layout.
+     */
+    const emailFields = document.querySelectorAll('.wpcf7-form input[type="email"]');
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+    emailFields.forEach(function(emailInput) {
+        const form = emailInput.closest('form');
+        if (!form) return;
+
+        // Locate the elements inside this specific isolated form layout
+        const sendBtn = form.querySelector('.seov_cf7-send-otp-btn');
+        const otpField = form.querySelector('input[name="sparrow-email-otp"]');
+        
+        // Skip setup if the specific form does not use the sparrow OTP field element
+        if (!sendBtn || !otpField) return;
+
+        // Find or create the dynamic container box wrapping both elements
+        let otpBox = form.querySelector('.sparrow-otp-box');
+        if (!otpBox) {
+            otpBox = document.createElement('div');
+            otpBox.className = 'sparrow-otp-box';
+            
+            /**
+             * Clean inline styles matching modern dashboard UI aesthetics.
+             * You can customize these styles or shift them to a CSS file.
+             */
+            otpBox.style.display = 'none';
+            otpBox.style.marginTop = '15px';
+            otpBox.style.padding = '15px';
+            otpBox.style.border = '1px solid #e2e8f0';
+            otpBox.style.borderRadius = '6px';
+            otpBox.style.backgroundColor = '#f8fafc';
+            
+            // Append smooth fade/slide css transition logic
+            otpBox.style.opacity = '0';
+            otpBox.style.transform = 'translateY(-10px)';
+            otpBox.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+
+            // Insert the box right before the send button's parent structure 
+            sendBtn.parentNode.insertBefore(otpBox, sendBtn);
+            
+            // Move the elements inside our clean wrapper box
+            otpBox.appendChild(sendBtn);
+            if (otpField.closest('label')) {
+                otpBox.appendChild(otpField.closest('label'));
+            } else {
+                otpBox.appendChild(otpField);
+            }
+        }
+
+        // Create a unique message container specifically inside this dynamic wrapper box
+        let msgContainer = otpBox.querySelector('.seov_cf7-otp-response');
+        if (!msgContainer) {
+            msgContainer = document.createElement('div');
+            msgContainer.className = 'seov_cf7-otp-response';
+            msgContainer.style.marginTop = '10px';
+            otpBox.appendChild(msgContainer);
+        }
+
+        /**
+         * Real-time validation listener to show/hide the dynamic container box
+         */
+        emailInput.addEventListener('input', function() {
+            const emailValue = emailInput.value.trim();
+
+            if (emailRegex.test(emailValue)) {
+                // Show the box smoothly using standard transitions
+                otpBox.style.display = 'block';
+                setTimeout(() => {
+                    otpBox.style.opacity = '1';
+                    otpBox.style.transform = 'translateY(0)';
+                }, 10);
+            } else {
+                // Instantly hide the box if email text becomes empty or malformed
+                otpBox.style.opacity = '0';
+                otpBox.style.transform = 'translateY(-10px)';
+                otpBox.style.display = 'none';
+                
+                // Flush stale backend warning strings
+                msgContainer.innerHTML = ''; 
+            }
+        });
+
+        /**
+         * Handle the core AJAX pipeline execution request trigger
+         */
         sendBtn.addEventListener('click', function(e) {
             e.preventDefault();
             msgContainer.innerHTML = ''; 
             
-            // Scope the search to the current form only
-            const form = sendBtn.closest('form');
-            const emailField = form.querySelector('input[type=\"email\"]');
-            const email = emailField ? emailField.value : '';
+            const email = emailInput ? emailInput.value.trim() : '';
 
             if (!email || !email.includes('@')) {
                 showOtpMsg(msgContainer, seov_cf7_obj.msg_invalid_email, 'error');
