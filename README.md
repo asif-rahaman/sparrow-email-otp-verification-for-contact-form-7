@@ -1,3 +1,5 @@
+![Sparrow OTP Banner](https://plugins.svn.wordpress.org/sparrow-email-otp-verification-for-contact-form-7/assets/banner-1544x500.png)
+
 # Sparrow Email OTP Verification for Contact Form 7
 
 Sparrow Email OTP Verification for Contact Form 7 provides a robust security layer for your website by verifying user email addresses before form submission. This effectively blocks bots, spammers, and malicious actors from flooding your inbox with fake data or invalid leads.
@@ -11,6 +13,7 @@ This plugin is built with a **"Your Server, Your Rules"** philosophy. It sends O
 ## ✨ Features
 
 * **Block Bots & Spam:** Ensure every submission comes from a person with a valid, accessible email address.
+* **Conditional Display (New v1.1.0):** Dynamically wrap and hide the verification input and send button in a clean UI box until a valid email address pattern is typed into the form field.
 * **Cost-Effective:** Zero cost to send OTPs—it uses your existing server or SMTP setup.
 * **Privacy First:** No data is sent to external verification APIs; everything stays on your server.
 * **Security-First Rate Limiting:** Includes built-in protection to prevent OTP request abuse by limiting users to 3 attempts per 5 minutes per IP address.
@@ -22,9 +25,10 @@ This plugin is built with a **"Your Server, Your Rules"** philosophy. It sends O
 
 1. Upload the `sparrow-email-otp-verification-for-contact-form-7` folder to the `/wp-content/plugins/` directory.
 2. Activate the plugin through the 'Plugins' menu in WordPress.
-3. Edit your Contact Form 7 form and add these two elements:
+3. Edit your Contact Form 7 form and add these elements:
     * **The Button:** `<button type="button" class="seov_cf7-send-otp-btn wpcf7-submit">Send OTP</button>`
-    * **The OTP Field:** `[text* sparrow-email-otp placeholder "Enter OTP"]`
+    * **The OTP Field (Standard Visible Layout):** `[text* sparrow-email-otp placeholder "Enter OTP"]`
+    * **The OTP Field (Conditional Hidden Layout):** `[text* sparrow-email-otp conditional_display:yes placeholder "Enter OTP"]`
 4. Save your form.
 
 ## ❓ Frequently Asked Questions
@@ -38,6 +42,35 @@ To protect your server from being used for mail bombing or automated attacks, th
 ### Does it work with "WP Mail SMTP"?
 Absolutely. It routes emails through whatever SMTP provider you have configured in your dashboard.
 
+## 🖼️ Screenshots
+
+1. **Admin Setup (Conditional Mode)** ![Admin Setup (Conditional Mode)](https://plugins.svn.wordpress.org/sparrow-email-otp-verification-for-contact-form-7/assets/screenshot-1.jpg)  
+   How to configure the sparrow-email-otp shortcode tag using the 'conditional_display:yes' attribute in the Contact Form 7 editor.
+
+2. **Hidden Initial State** ![Hidden Initial State](https://plugins.svn.wordpress.org/sparrow-email-otp-verification-for-contact-form-7/assets/screenshot-2.jpg)  
+   The entire OTP verification layout container remains completely hidden from view when the email field is empty or incomplete.
+
+3. **Dynamic Reveal Effect** ![Dynamic Reveal Effect](https://plugins.svn.wordpress.org/sparrow-email-otp-verification-for-contact-form-7/assets/screenshot-3.jpg)  
+   The OTP input field and action button smoothly animate into view the exact moment a structurally valid email address pattern is typed.
+
+4. **Successful OTP Dispatch** ![Successful OTP Dispatch](https://plugins.svn.wordpress.org/sparrow-email-otp-verification-for-contact-form-7/assets/screenshot-4.jpg)  
+   A clear, real-time success notice is printed inside the container box immediately after a verification code is sent.
+
+5. **Built-In Resend Timer** ![Built-In Resend Timer](https://plugins.svn.wordpress.org/sparrow-email-otp-verification-for-contact-form-7/assets/screenshot-5.jpg)  
+   After sending an OTP, a 60-second cooldown period activates on the action button before transforming into a functional 'Resend OTP' trigger.
+
+6. **Backend Error Handling** ![Backend Error Handling](https://plugins.svn.wordpress.org/sparrow-email-otp-verification-for-contact-form-7/assets/screenshot-6.jpg)  
+   The validation engine catches incorrect or expired verification codes and prints localized inline error notices beautifully.
+
+7. **Anti-Spam Rate Limiting** ![Anti-Spam Rate Limiting](https://plugins.svn.wordpress.org/sparrow-email-otp-verification-for-contact-form-7/assets/screenshot-7.jpg)  
+   Built-in security matrices temporarily block excessive requests based on strict client IP transient evaluations if a user abuses the button.
+
+8. **Standard Layout Setup** ![Standard Layout Setup](https://plugins.svn.wordpress.org/sparrow-email-otp-verification-for-contact-form-7/assets/screenshot-8.jpg)  
+   Configuration setup in the admin dashboard for rendering the OTP fields traditionally without the conditional display attribute wrapper.
+
+9. **Classic Open Interface** ![Classic Open Interface](https://plugins.svn.wordpress.org/sparrow-email-otp-verification-for-contact-form-7/assets/screenshot-9.jpg)  
+   The OTP verification field and button render fully visible directly on the form from initial page load when conditional display is disabled.
+
 ## 👨‍💻 Developed By
 
-**Asif Rahaman** — Full-stack WordPress & WooCommerce Developers with over 12 years of professional experience. Specializing in high-performance WordPress optimization for large-scale enterprise websites and complex WooCommerce environments.
+**Asif Rahaman** — Full-stack WordPress & WooCommerce Developer with over 12 years of professional experience. Specializing in high-performance WordPress optimization for large-scale enterprise websites and complex WooCommerce environments.
