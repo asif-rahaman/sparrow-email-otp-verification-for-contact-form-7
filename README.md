@@ -1,4 +1,4 @@
-![Sparrow OTP Banner](https://plugins.svn.wordpress.org/sparrow-email-otp-verification-for-contact-form-7/assets/banner-1544x500.png)
+![Sparrow OTP Banner](https://ps.w.org/sparrow-email-otp-verification-for-contact-form-7/assets/banner-1544x500.png)
 
 # Sparrow Email OTP Verification for Contact Form 7
 
@@ -44,31 +44,31 @@ Absolutely. It routes emails through whatever SMTP provider you have configured 
 
 ## 🖼️ Screenshots
 
-1. **Admin Setup (Conditional Mode)** ![Admin Setup (Conditional Mode)](https://plugins.svn.wordpress.org/sparrow-email-otp-verification-for-contact-form-7/assets/screenshot-1.jpg)  
+1. **Admin Setup (Conditional Mode)** ![Admin Setup (Conditional Mode)](https://ps.w.org/sparrow-email-otp-verification-for-contact-form-7/assets/screenshot-1.jpg)  
    How to configure the sparrow-email-otp shortcode tag using the 'conditional_display:yes' attribute in the Contact Form 7 editor.
 
-2. **Hidden Initial State** ![Hidden Initial State](https://plugins.svn.wordpress.org/sparrow-email-otp-verification-for-contact-form-7/assets/screenshot-2.jpg)  
+2. **Hidden Initial State** ![Hidden Initial State](https://ps.w.org/sparrow-email-otp-verification-for-contact-form-7/assets/screenshot-2.jpg)  
    The entire OTP verification layout container remains completely hidden from view when the email field is empty or incomplete.
 
-3. **Dynamic Reveal Effect** ![Dynamic Reveal Effect](https://plugins.svn.wordpress.org/sparrow-email-otp-verification-for-contact-form-7/assets/screenshot-3.jpg)  
+3. **Dynamic Reveal Effect** ![Dynamic Reveal Effect](https://ps.w.org/sparrow-email-otp-verification-for-contact-form-7/assets/screenshot-3.jpg)  
    The OTP input field and action button smoothly animate into view the exact moment a structurally valid email address pattern is typed.
 
-4. **Successful OTP Dispatch** ![Successful OTP Dispatch](https://plugins.svn.wordpress.org/sparrow-email-otp-verification-for-contact-form-7/assets/screenshot-4.jpg)  
+4. **Successful OTP Dispatch** ![Successful OTP Dispatch](https://ps.w.org/sparrow-email-otp-verification-for-contact-form-7/assets/screenshot-4.jpg)  
    A clear, real-time success notice is printed inside the container box immediately after a verification code is sent.
 
-5. **Built-In Resend Timer** ![Built-In Resend Timer](https://plugins.svn.wordpress.org/sparrow-email-otp-verification-for-contact-form-7/assets/screenshot-5.jpg)  
+5. **Built-In Resend Timer** ![Built-In Resend Timer](https://ps.w.org/sparrow-email-otp-verification-for-contact-form-7/assets/screenshot-5.jpg)  
    After sending an OTP, a 60-second cooldown period activates on the action button before transforming into a functional 'Resend OTP' trigger.
 
-6. **Backend Error Handling** ![Backend Error Handling](https://plugins.svn.wordpress.org/sparrow-email-otp-verification-for-contact-form-7/assets/screenshot-6.jpg)  
+6. **Backend Error Handling** ![Backend Error Handling](https://ps.w.org/sparrow-email-otp-verification-for-contact-form-7/assets/screenshot-6.jpg)  
    The validation engine catches incorrect or expired verification codes and prints localized inline error notices beautifully.
 
-7. **Anti-Spam Rate Limiting** ![Anti-Spam Rate Limiting](https://plugins.svn.wordpress.org/sparrow-email-otp-verification-for-contact-form-7/assets/screenshot-7.jpg)  
+7. **Anti-Spam Rate Limiting** ![Anti-Spam Rate Limiting](https://ps.w.org/sparrow-email-otp-verification-for-contact-form-7/assets/screenshot-7.jpg)  
    Built-in security matrices temporarily block excessive requests based on strict client IP transient evaluations if a user abuses the button.
 
-8. **Standard Layout Setup** ![Standard Layout Setup](https://plugins.svn.wordpress.org/sparrow-email-otp-verification-for-contact-form-7/assets/screenshot-8.jpg)  
+8. **Standard Layout Setup** ![Standard Layout Setup](https://ps.w.org/sparrow-email-otp-verification-for-contact-form-7/assets/screenshot-8.jpg)  
    Configuration setup in the admin dashboard for rendering the OTP fields traditionally without the conditional display attribute wrapper.
 
-9. **Classic Open Interface** ![Classic Open Interface](https://plugins.svn.wordpress.org/sparrow-email-otp-verification-for-contact-form-7/assets/screenshot-9.jpg)  
+9. **Classic Open Interface** ![Classic Open Interface](https://ps.w.org/sparrow-email-otp-verification-for-contact-form-7/assets/screenshot-9.jpg)  
    The OTP verification field and button render fully visible directly on the form from initial page load when conditional display is disabled.
 
 ## 👨‍💻 Developed By
