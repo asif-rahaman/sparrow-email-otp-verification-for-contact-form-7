@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     /**
-     * NEW V1.1.0 FEATURE: Dynamic Wrapper Isolation
-     * Automatically search for any native Contact Form 7 email fields and set up 
-     * the conditionally hidden wrapper box layout.
+     * NEW V1.1.0 FEATURE: Conditional Layout Engine
+     * Automatically scan for any native Contact Form 7 email fields and evaluate 
+     * if conditional display parameters are enabled on the target inputs.
      */
     const emailFields = document.querySelectorAll('.wpcf7-form input[type="email"]');
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -11,82 +11,105 @@ document.addEventListener('DOMContentLoaded', function() {
         const form = emailInput.closest('form');
         if (!form) return;
 
-        // Locate the elements inside this specific isolated form layout
+        // Locate target elements inside this specific isolated form layout
         const sendBtn = form.querySelector('.seov_cf7-send-otp-btn');
         const otpField = form.querySelector('input[name="sparrow-email-otp"]');
         
-        // Skip setup if the specific form does not use the sparrow OTP field element
+        // Skip setup if the current form does not use the sparrow OTP field element
         if (!sendBtn || !otpField) return;
 
-        // Find or create the dynamic container box wrapping both elements
-        let otpBox = form.querySelector('.sparrow-otp-box');
-        if (!otpBox) {
-            otpBox = document.createElement('div');
-            otpBox.className = 'sparrow-otp-box';
-            
-            /**
-             * Clean inline styles matching modern dashboard UI aesthetics.
-             * You can customize these styles or shift them to a CSS file.
-             */
-            otpBox.style.display = 'none';
-            otpBox.style.marginTop = '15px';
-            otpBox.style.padding = '15px';
-            otpBox.style.border = '1px solid #e2e8f0';
-            otpBox.style.borderRadius = '6px';
-            otpBox.style.backgroundColor = '#f8fafc';
-            
-            // Append smooth fade/slide css transition logic
-            otpBox.style.opacity = '0';
-            otpBox.style.transform = 'translateY(-10px)';
-            otpBox.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-
-            // Insert the box right before the send button's parent structure 
-            sendBtn.parentNode.insertBefore(otpBox, sendBtn);
-            
-            // Move the elements inside our clean wrapper box
-            otpBox.appendChild(sendBtn);
-            if (otpField.closest('label')) {
-                otpBox.appendChild(otpField.closest('label'));
-            } else {
-                otpBox.appendChild(otpField);
-            }
-        }
-
-        // Create a unique message container specifically inside this dynamic wrapper box
-        let msgContainer = otpBox.querySelector('.seov_cf7-otp-response');
-        if (!msgContainer) {
-            msgContainer = document.createElement('div');
-            msgContainer.className = 'seov_cf7-otp-response';
-            msgContainer.style.marginTop = '10px';
-            otpBox.appendChild(msgContainer);
-        }
+        let msgContainer;
 
         /**
-         * Real-time validation listener to show/hide the dynamic container box
+         * FIX: Check directly for the generated HTML attribute 'data-conditional="yes"'
+         * on the specific field tag rather than relying on global localized variables.
          */
-        emailInput.addEventListener('input', function() {
-            const emailValue = emailInput.value.trim();
-
-            if (emailRegex.test(emailValue)) {
-                // Show the box smoothly using standard transitions
-                otpBox.style.display = 'block';
-                setTimeout(() => {
-                    otpBox.style.opacity = '1';
-                    otpBox.style.transform = 'translateY(0)';
-                }, 10);
-            } else {
-                // Instantly hide the box if email text becomes empty or malformed
+        if (otpField.getAttribute('data-conditional') === 'yes') {
+            let otpBox = form.querySelector('.sparrow-otp-box');
+            if (!otpBox) {
+                // Build the container wrapper element dynamically
+                otpBox = document.createElement('div');
+                otpBox.className = 'sparrow-otp-box';
+                
+                // Set default aesthetic wrapping block styles
+                otpBox.style.display = 'none';
+                otpBox.style.marginTop = '15px';
+                otpBox.style.padding = '15px';
+                otpBox.style.border = '1px solid #e2e8f0';
+                otpBox.style.borderRadius = '6px';
+                otpBox.style.backgroundColor = '#f8fafc';
+                
+                // Configure smooth deployment hardware-accelerated transitions
                 otpBox.style.opacity = '0';
                 otpBox.style.transform = 'translateY(-10px)';
-                otpBox.style.display = 'none';
+                otpBox.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+
+                // Insert the wrapper box right where the target elements live
+                if (otpField.closest('label')) {
+                    sendBtn.parentNode.insertBefore(otpBox, otpField.closest('label'));
+                } else {
+                    sendBtn.parentNode.insertBefore(otpBox, otpField);
+                }
                 
-                // Flush stale backend warning strings
-                msgContainer.innerHTML = ''; 
+                // V1.1.1 ORDER CORRECTION: Place the OTP Input field FIRST inside the layout box
+                if (otpField.closest('label')) {
+                    otpBox.appendChild(otpField.closest('label'));
+                } else {
+                    otpBox.appendChild(otpField);
+                }
+                
+                // V1.1.1 ORDER CORRECTION: Place the action button SECOND (rendering right underneath)
+                sendBtn.style.marginTop = '12px';
+                sendBtn.style.display = 'block';
+                otpBox.appendChild(sendBtn);
             }
-        });
+
+            // Route notifications to render directly inside our custom isolated container wrapper
+            msgContainer = otpBox.querySelector('.seov_cf7-otp-response');
+            if (!msgContainer) {
+                msgContainer = document.createElement('div');
+                msgContainer.className = 'seov_cf7-otp-response';
+                msgContainer.style.marginTop = '10px';
+                otpBox.appendChild(msgContainer);
+            }
+
+            // Bind real-time contextual validation input tracker monitors
+            emailInput.addEventListener('input', function() {
+                const emailValue = emailInput.value.trim();
+
+                if (emailRegex.test(emailValue)) {
+                    // Smoothly animate the container wrapper box into active view
+                    otpBox.style.display = 'block';
+                    setTimeout(() => {
+                        otpBox.style.opacity = '1';
+                        otpBox.style.transform = 'translateY(0)';
+                    }, 10);
+                } else {
+                    // Immediately pull out and hide layout elements if the address breaks or vanishes
+                    otpBox.style.opacity = '0';
+                    otpBox.style.transform = 'translateY(-10px)';
+                    otpBox.style.display = 'none';
+                    msgContainer.innerHTML = ''; 
+                }
+            });
 
         /**
-         * Handle the core AJAX pipeline execution request trigger
+         * MODE 2: CLASSIC DISPLAY LOGIC (Fallback Default)
+         * Runs if shortcode attribute is completely missing. Layout remains visible on load.
+         */
+        } else {
+            // Append default runtime inline notices right behind the standard action button node
+            msgContainer = form.querySelector('.seov_cf7-otp-response');
+            if (!msgContainer) {
+                msgContainer = document.createElement('div');
+                msgContainer.className = 'seov_cf7-otp-response';
+                msgContainer.style.marginTop = '10px';
+                sendBtn.parentNode.insertBefore(msgContainer, sendBtn.nextSibling);
+            }
+        }
+
+        /**
+         * Core AJAX Network Pipeline Request Execution Trigger
          */
         sendBtn.addEventListener('click', function(e) {
             e.preventDefault();

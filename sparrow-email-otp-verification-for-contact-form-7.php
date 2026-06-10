@@ -30,7 +30,15 @@ class SEOV_CF7_Email_OTP_Verification {
         
         add_filter('wpcf7_validate_text*', [$this, 'seov_cf7_validate_otp'], 20, 2);
         add_filter('wpcf7_validate_text', [$this, 'seov_cf7_validate_otp'], 20, 2);
+
+        /**
+         * FIX: Hook into the form tags parsing pipeline.
+         * When CF7 compiles the raw form input elements into HTML output, 
+         * look for conditional_display:yes and attach a custom data-attribute.
+         */
+        add_filter('wpcf7_form_elements', [$this, 'seov_cf7_parse_shortcode_attributes']);
     }
+
     /**
      * Enqueue JS and localized strings.
      */
@@ -51,8 +59,29 @@ class SEOV_CF7_Email_OTP_Verification {
         wp_add_inline_style('seov-cf7-otp-js', $custom_css);
     }
 
+    /**
+     * FIX: Dynamic Tag Output Filter
+     * Automatically captures the tag context while Contact Form 7 parses form tags.
+     * If conditional_display:yes is inside the shortcode, it appends data-conditional="yes" directly onto the HTML input field.
+     */
+    public function seov_cf7_parse_shortcode_attributes($html) {
+        $manager = WPCF7_FormTagsManager::get_instance();
+        $scanned_tags = $manager->get_scanned_tags();
+
+        foreach ($scanned_tags as $tag) {
+            if ($tag->name === 'sparrow-email-otp' && in_array('conditional_display:yes', $tag->options)) {
+                // Safely append a tracking attribute to the input element in HTML string output
+                $html = str_replace(
+                    'name="sparrow-email-otp"', 
+                    'name="sparrow-email-otp" data-conditional="yes"', 
+                    $html
+                );
+            }
+        }
+        return $html;
+    }
+
     private function seov_cf7_get_user_ip() {
-        // SECURITY: wp_unslash() and sanitize_text_field for server vars
         $ip = isset($_SERVER['REMOTE_ADDR']) ? sanitize_text_field(wp_unslash($_SERVER['REMOTE_ADDR'])) : '0.0.0.0';
         return $ip;
     }
@@ -63,12 +92,10 @@ class SEOV_CF7_Email_OTP_Verification {
     public function seov_cf7_handle_send_otp() {
         check_ajax_referer('seov_cf7_otp_nonce', 'security');
 
-        // SECURITY: Check if POST index exists and unslash before sanitizing
         $email = isset($_POST['email']) ? sanitize_email(wp_unslash($_POST['email'])) : '';
         $ip    = $this->seov_cf7_get_user_ip();
         $rate_key = 'seov_cf7_limit_' . md5($ip);
 
-        // Rate Limiting
         $attempts = get_transient($rate_key) ?: 0;
         if ($attempts >= $this->limit_count) {
             wp_send_json_error(__('Too many attempts. Please try again in 5 minutes.', 'sparrow-email-otp-verification-for-contact-form-7'));
@@ -78,11 +105,9 @@ class SEOV_CF7_Email_OTP_Verification {
             wp_send_json_error(__('Invalid email address.', 'sparrow-email-otp-verification-for-contact-form-7'));
         }
 
-        // SECURITY: Use wp_rand() instead of rand()
         $otp = wp_rand(100000, 999999);
         set_transient('seov_cf7_otp_' . md5($email), $otp, 5 * MINUTE_IN_SECONDS);
 
-        // Prepare Email
         /* translators: %s: Site Name */
         $subject = sprintf(__('[%s] Your Verification OTP Code', 'sparrow-email-otp-verification-for-contact-form-7'), get_bloginfo('name'));
         /* translators: %s: OTP Code */
